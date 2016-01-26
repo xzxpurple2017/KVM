@@ -1,0 +1,37 @@
+WHAT'S NEW!!!
+
+VERSION 1.2
+
+--Fixed grammar and spacing issues.
+--Added more color coding for clarity.
+--Added check to make sure VM is on or present before initiating console.
+--Added check to make sure VM is not present before creating a new VM.
+--Added ability to see total number of virtual machines.
+--Added confirmation request for permanently deleting VMs.
+
+VERSION 1.1
+
+--Bugfixes galore.
+--Fixed grammar and spacing issues.
+--Added new feature! Now can delete VMs.
+--Added force shutdown deature for VMs.
+--Improved initial layout.
+
+VERSION 1.0
+
+--First version of virt-manage.
+--Mainly used to start and shutdwon VMs.
+--Integrated SSH client for VM console ability.
+
+REQUIREMENTS
+
+--/mnt/kvm-images. Feel free to change this to the default /var/lib/libvirt/images.
+--Libvirt
+--KVM/QEMU
+--SSH 
+--A pre-configured centos-kvm-base-v1.0.img
+--Guest images with the following syntax: vm-server[X].img where X is the VM number.
+--Libguestfs and Guestfish
+--qemu-img
+--Policykit permissions for normal users for libvirt.
+

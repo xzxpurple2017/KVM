@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "Enter path of base image:"
+read BASE
+echo "Enter prefix name of new image(s):"
+read NEW
+echo "Enter number of VMs desired:"
+read NUMBER
+for i in `seq 1 $NUMBER`; do
+		
+

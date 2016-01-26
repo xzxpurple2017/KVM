@@ -1,0 +1,15 @@
+Things to change on XML
+
+Change Name
+Comment out UUID
+Erase macvtap bridge
+Comment out MAC address
+IMPORTANT: Make sure you change the path of the VM image!!!
+
+sudo service libvirtd restart
+
+virsh -c qemu:///system
+
+To find out IP address of server, do arp -an
+
+Enter information into /etc/hosts

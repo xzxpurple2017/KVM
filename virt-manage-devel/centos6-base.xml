@@ -1,0 +1,140 @@
+<domain type='kvm' id='6'>
+  <name>centos6-base</name>
+  <uuid>6a1b5f6b-bd22-8859-9479-de5b4f1e9613</uuid>
+  <memory unit='KiB'>786432</memory>
+  <currentMemory unit='KiB'>786432</currentMemory>
+  <vcpu placement='static'>1</vcpu>
+  <os>
+    <type arch='x86_64' machine='rhel6.6.0'>hvm</type>
+    <boot dev='hd'/>
+  </os>
+  <features>
+    <acpi/>
+    <apic/>
+    <pae/>
+  </features>
+  <cpu mode='custom' match='exact'>
+    <model fallback='allow'>Opteron_G3</model>
+    <vendor>AMD</vendor>
+    <feature policy='require' name='skinit'/>
+    <feature policy='require' name='vme'/>
+    <feature policy='require' name='mmxext'/>
+    <feature policy='require' name='fxsr_opt'/>
+    <feature policy='require' name='cr8legacy'/>
+    <feature policy='require' name='ht'/>
+    <feature policy='require' name='3dnowprefetch'/>
+    <feature policy='require' name='3dnowext'/>
+    <feature policy='require' name='wdt'/>
+    <feature policy='require' name='extapic'/>
+    <feature policy='require' name='pdpe1gb'/>
+    <feature policy='require' name='osvw'/>
+    <feature policy='require' name='ibs'/>
+    <feature policy='require' name='cmp_legacy'/>
+    <feature policy='require' name='3dnow'/>
+    <feature policy='require' name='invtsc'/>
+  </cpu>
+  <clock offset='utc'/>
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>restart</on_crash>
+  <devices>
+    <emulator>/usr/libexec/qemu-kvm</emulator>
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2' cache='none' io='native'/>
+      <source file='/var/lib/libvirt/images/centos6-base.img'/>
+      <target dev='vda' bus='virtio'/>
+      <alias name='virtio-disk0'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x07' function='0x0'/>
+    </disk>
+    <disk type='block' device='cdrom'>
+      <driver name='qemu' type='raw'/>
+      <target dev='hdc' bus='ide'/>
+      <readonly/>
+      <alias name='ide0-1-0'/>
+      <address type='drive' controller='0' bus='1' target='0' unit='0'/>
+    </disk>
+    <controller type='usb' index='0' model='ich9-ehci1'>
+      <alias name='usb0'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x7'/>
+    </controller>
+    <controller type='usb' index='0' model='ich9-uhci1'>
+      <alias name='usb0'/>
+      <master startport='0'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x0' multifunction='on'/>
+    </controller>
+    <controller type='usb' index='0' model='ich9-uhci2'>
+      <alias name='usb0'/>
+      <master startport='2'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x1'/>
+    </controller>
+    <controller type='usb' index='0' model='ich9-uhci3'>
+      <alias name='usb0'/>
+      <master startport='4'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x2'/>
+    </controller>
+    <controller type='ide' index='0'>
+      <alias name='ide0'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x01' function='0x1'/>
+    </controller>
+    <controller type='virtio-serial' index='0'>
+      <alias name='virtio-serial0'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x06' function='0x0'/>
+    </controller>
+    <interface type='network'>
+      <mac address='52:54:00:f1:ee:a3'/>
+      <source network='default'/>
+      <target dev='vnet1'/>
+      <model type='virtio'/>
+      <alias name='net0'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x0'/>
+    </interface>
+    <interface type='direct'>
+      <mac address='52:54:00:93:20:08'/>
+      <source dev='wlan0' mode='bridge'/>
+      <target dev='macvtap1'/>
+      <model type='virtio'/>
+      <alias name='net1'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x09' function='0x0'/>
+    </interface>
+    <serial type='pty'>
+      <source path='/dev/pts/2'/>
+      <target port='0'/>
+      <alias name='serial0'/>
+    </serial>
+    <console type='pty' tty='/dev/pts/2'>
+      <source path='/dev/pts/2'/>
+      <target type='serial' port='0'/>
+      <alias name='serial0'/>
+    </console>
+    <channel type='spicevmc'>
+      <target type='virtio' name='com.redhat.spice.0'/>
+      <alias name='channel0'/>
+      <address type='virtio-serial' controller='0' bus='0' port='1'/>
+    </channel>
+    <input type='tablet' bus='usb'>
+      <alias name='input0'/>
+    </input>
+    <input type='mouse' bus='ps2'/>
+    <graphics type='spice' port='5901' autoport='yes' listen='127.0.0.1'>
+      <listen type='address' address='127.0.0.1'/>
+    </graphics>
+    <sound model='ich6'>
+      <alias name='sound0'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x0'/>
+    </sound>
+    <video>
+      <model type='qxl' ram='65536' vram='65536' heads='1'/>
+      <alias name='video0'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x0'/>
+    </video>
+    <memballoon model='virtio'>
+      <alias name='balloon0'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x08' function='0x0'/>
+    </memballoon>
+  </devices>
+  <seclabel type='dynamic' model='selinux' relabel='yes'>
+    <label>unconfined_u:system_r:svirt_t:s0:c570,c688</label>
+    <imagelabel>unconfined_u:object_r:svirt_image_t:s0:c570,c688</imagelabel>
+  </seclabel>
+</domain>
+
