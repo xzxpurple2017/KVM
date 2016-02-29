@@ -1,21 +1,39 @@
-#!/usr/bin/env perl
+#!/usr/bin/perl
+#
+# pdam@intacct.com
+#
+# Automates creating new KVM virtual machines.
 
 use strict;
 use warnings;
 use Sys::Virt;
-use Getopt::Std;                                                                       
+use File::Basename;
+use Getopt::Long;
 use Data::UUID;
 use File::Copy qw(copy);
 use File::Slurp qw(read_file write_file);
-                                                                                       
-my($basename) = $0 =~ m{([^/\\]+)$};                                                   
-my $usage     = "usage: $basename -n <VM NAME>\n";                                          
-                                                                                       
-my $optspec = ":n:";                                                                   
-my %opts    = ();                                                                      
-getopts($optspec,\%opts)  or  die $usage;                                              
-                                                                                       
-my $vm_name = $opts{'n'}  or  die "VM NAME must be specified, e.g. 'vm-server2'\n\n$usage\n";     
+                 
+my $progname = basename($0);                                                                      
+
+my $usage = << "EOF";
+
+This script is used to automate the creation of KVM virtual machines.
+
+Usage: $progname\t[-n] [--new]	Create new VM.		                
+                \t[-h] [--help]	Displays usage information.
+EOF
+
+my $vm_name		= '';
+my $help                = '';
+
+GetOptions ("new=s"	=> \$vm_name,
+            "help"	=> \$help)
+or die("\nUsage: $progname [OPTION]...\nTry $progname -h, --help for more information.\n");
+
+if ($help) {
+    print "$usage\n";
+    exit 0
+}
 
 # Preparing the new images and config files
  
