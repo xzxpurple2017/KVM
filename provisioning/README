@@ -1,0 +1,16 @@
+Only two scripts that are currently functioning:
+
+- provisioner.pl
+- provisioner-batch.sh
+
+The first script allows you to create new VMs provided there is a master image and a master config file present.
+
+Scripts and ideas in progress:
+
+- Delete guests. Included as function of provisioner.pl script.
+- Get IP address of guest. Included as function of provisioner.pl script. 
+- Guest autoconfigures hostname by querying a database.
+
+
+
+
