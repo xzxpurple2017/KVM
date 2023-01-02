@@ -9,6 +9,14 @@ IMAGE_POOL="/home/philip/.local/share/libvirt/images"
 GOLD_VM_NAME="gold-template-centos-stream-9-vm"
 NETWORK="default"
 
+# Check if virbr0 network interface exists
+ip a l virbr0 >/dev/null 2>&1
+ret=$?
+if [[ $ret -ne 0 ]] ; then
+    echo "# ERROR - Could not query virbr0 interface"
+    exit 1
+fi
+
 echo "# Cloning new virtual machine"
 echo
 virt-clone \
